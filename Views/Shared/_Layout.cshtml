@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/resturangAPI_MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Theme.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -23,11 +25,31 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Index">Menu</a>
                         </li>
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Table" asp-action="Index">Bord</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">Bokningar</a>
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logga ut</a>
+                            </li>
+                            }
+                            else
+                            {
+                            <li class="nav-item" id="bokning">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Create">Gör en bokning</a>
+                            </li>
+
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Logga in</a>
+                            </li>
+                            }
+                       
                     </ul>
                 </div>
             </div>

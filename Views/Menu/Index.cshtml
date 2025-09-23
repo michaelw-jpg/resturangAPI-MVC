@@ -13,7 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MenuId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -24,9 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPopular)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
@@ -48,18 +45,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+         
             <td>
-                @Html.DisplayFor(modelItem => item.IsPopular)
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/images/italianfood.jpg") : item.ImageUrl)"
+                         alt="@item.Name"
+                         onerror="this.onerror=null; this.src='@Url.Content("~/images/italianfood.jpg")';" />
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+
+				@if(User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MenuId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MenuId })
+                    </td>
+                }
+          
         </tr>
-}
+    }
     </tbody>
 </table>

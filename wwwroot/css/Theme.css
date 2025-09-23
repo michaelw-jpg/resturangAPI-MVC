@@ -1,0 +1,493 @@
+﻿/* Italian Restaurant Theme CSS */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+/* CSS Variables for Italian Colors */
+:root {
+    --italian-red: #C8102E;
+    --italian-green: #009246;
+    --italian-cream: #FFF5E6;
+    --warm-gold: #D4AF37;
+    --dark-brown: #3E2723;
+    --light-brown: #8D6E63;
+    --olive-green: #556B2F;
+}
+
+/* Body and Background */
+body {
+    font-family: 'Lato', sans-serif !important;
+    background: linear-gradient(135deg, var(--italian-cream) 0%, #F5F5DC 100%) !important;
+    color: var(--dark-brown) !important;
+    min-height: 100vh;
+    position: relative;
+}
+
+    /* Background Pattern */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at 25% 25%, rgba(196, 16, 46, 0.05) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(0, 146, 70, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+/* Main Container Styling */
+.container, .container-fluid {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styling */
+h1 {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 3.5rem !important;
+    color: var(--italian-red) !important;
+    text-align: center !important;
+    margin: 30px 0 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
+    position: relative;
+}
+
+    h1::after {
+        content: ' 🍝';
+        font-size: 2rem;
+        margin-left: 15px;
+    }
+
+    h1::before {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--italian-green), var(--italian-red), var(--italian-green));
+        border-radius: 2px;
+    }
+
+/* Secondary Headers */
+h2, h3, h4 {
+    font-family: 'Playfair Display', serif !important;
+    color: var(--italian-red) !important;
+}
+
+/* Create New Button and Similar Action Links */
+a[asp-action="Create"],
+a[href*="Create"],
+.btn-primary,
+input[type="submit"].btn-primary {
+    background: linear-gradient(135deg, var(--italian-red), #E91E63) !important;
+    color: white !important;
+    padding: 12px 30px !important;
+    text-decoration: none !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+    margin: 20px 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3) !important;
+    font-family: 'Playfair Display', serif !important;
+    border: none !important;
+}
+
+    a[asp-action="Create"]::before,
+    a[href*="Create"]::before {
+        content: '+ ';
+        font-weight: bold;
+    }
+
+    a[asp-action="Create"]:hover,
+    a[href*="Create"]:hover,
+    .btn-primary:hover,
+    input[type="submit"].btn-primary:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 25px rgba(200, 16, 46, 0.4) !important;
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+
+.navbar a[asp-action="Create"],
+.navbar a[href*="Create"] {
+    background: none !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    text-decoration: none !important;
+    border-radius: 0 !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: none !important;
+    font-family: inherit !important;
+    border: none !important;
+}
+
+    .navbar a[asp-action="Create"]::before,
+    .navbar a[href*="Create"]::before {
+        content: none !important;
+    }
+
+    .navbar a[asp-action="Create"]:hover,
+    .navbar a[href*="Create"]:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: none !important;
+        color: var(--warm-gold) !important;
+        text-decoration: none !important;
+        background: none !important;
+    }
+
+/* Table Container - Wrap existing tables */
+.table {
+    background: white !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    margin: 30px 0 !important;
+    border: 3px solid var(--warm-gold) !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+    /* Table Header */
+    .table thead {
+        background: linear-gradient(135deg, var(--italian-green), var(--olive-green)) !important;
+    }
+
+        .table thead th {
+            padding: 18px 15px !important;
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            text-align: center !important;
+            border-bottom: 2px solid var(--warm-gold) !important;
+            color: white !important;
+            position: relative;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+
+            .table thead th::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: var(--warm-gold);
+            }
+
+    /* Table Body */
+    .table tbody tr {
+        transition: all 0.3s ease !important;
+        border-bottom: 1px solid #E8E8E8 !important;
+    }
+
+        .table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.05), rgba(0, 146, 70, 0.05)) !important;
+            transform: scale(1.01) !important;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background: rgba(245, 245, 220, 0.3) !important;
+        }
+
+            .table tbody tr:nth-child(even):hover {
+                background: linear-gradient(135deg, rgba(200, 16, 46, 0.08), rgba(0, 146, 70, 0.08)) !important;
+            }
+
+    .table td, .table tbody td {
+        padding: 15px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        font-size: 0.95rem !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid #E8E8E8 !important;
+    }
+
+        /* Special Column Styling */
+        /* First column - ID styling */
+        .table td:first-child {
+            font-weight: 600 !important;
+            color: var(--italian-red) !important;
+        }
+
+        /* Second column - Name styling */
+        .table td:nth-child(2) {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            color: var(--dark-brown) !important;
+        }
+
+        /* Third column - Price styling */
+        .table td:nth-child(3) {
+            color: var(--italian-green) !important;
+            font-weight: 700 !important;
+            font-size: 1.1rem !important;
+        }
+
+        /* Fourth column - Description styling */
+        .table td:nth-child(4) {
+            font-style: italic !important;
+            color: var(--light-brown) !important;
+            max-width: 200px !important;
+            text-align: left !important;
+        }
+
+        /* Fifth column - IsPopular styling */
+        .table td:nth-child(5) {
+            font-weight: 600 !important;
+        }
+
+        /* Action Links in Last Column */
+        .table td:last-child a {
+            color: var(--italian-red) !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            padding: 5px 10px !important;
+            border-radius: 15px !important;
+            transition: all 0.3s ease !important;
+            margin: 0 2px !important;
+            font-size: 0.9rem !important;
+        }
+
+            .table td:last-child a:hover {
+                background: var(--italian-red) !important;
+                color: white !important;
+                transform: translateY(-1px) !important;
+                text-decoration: none !important;
+            }
+
+            .table td:last-child a[href*="Delete"]:hover {
+                background: #DC3545 !important;
+            }
+
+/* Form Styling */
+.form-group label {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 600 !important;
+    color: var(--dark-brown) !important;
+}
+
+.form-control {
+    border: 2px solid #E8E8E8 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+    .form-control:focus {
+        border-color: var(--italian-red) !important;
+        box-shadow: 0 0 0 0.2rem rgba(200, 16, 46, 0.25) !important;
+    }
+
+/* Validation Styling */
+.text-danger {
+    color: var(--italian-red) !important;
+    font-weight: 600 !important;
+}
+
+.input-validation-error {
+    border-color: var(--italian-red) !important;
+}
+
+/* Button Styling */
+.btn-secondary {
+    background: var(--light-brown) !important;
+    border-color: var(--light-brown) !important;
+    color: white !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+    .btn-secondary:hover {
+        background: var(--dark-brown) !important;
+        border-color: var(--dark-brown) !important;
+        transform: translateY(-1px) !important;
+    }
+
+/* Navigation Enhancement (if you have nav) */
+.navbar {
+    background: linear-gradient(135deg, var(--italian-green), var(--olive-green)) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.navbar-brand {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 2rem !important;
+    color: white !important;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.navbar-nav .nav-link:hover  {
+    color: var(--warm-gold) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Alert Styling */
+.alert-success {
+    background: linear-gradient(135deg, rgba(0, 146, 70, 0.1), rgba(85, 107, 47, 0.1)) !important;
+    border: 1px solid var(--italian-green) !important;
+    color: var(--olive-green) !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, rgba(200, 16, 46, 0.1), rgba(233, 30, 99, 0.1)) !important;
+    border: 1px solid var(--italian-red) !important;
+    color: var(--italian-red) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    .table-responsive {
+        border-radius: 15px !important;
+        border: 3px solid var(--warm-gold) !important;
+    }
+
+    .table td, .table th {
+        padding: 10px 8px !important;
+        font-size: 0.85rem !important;
+    }
+
+    a[asp-action="Create"],
+    a[href*="Create"] {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--italian-red);
+    border-radius: 4px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #A00E28;
+    }
+
+/* Loading animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table {
+    animation: fadeInUp 0.6s ease-out !important;
+}
+
+    /* Popular item indicator */
+    .table td:nth-child(5):after {
+        content: '';
+    }
+
+    /* Add star for "True" values in IsPopular column */
+    .table tbody tr td:nth-child(5) {
+        position: relative;
+    }
+
+        /* Special styling for boolean "True" display */
+        .table tbody tr:has(td:nth-child(5):contains("True")) td:nth-child(5):after,
+        .table tbody tr td:nth-child(5)[data-popular="true"]:after {
+            content: ' ⭐';
+            color: var(--warm-gold);
+        }
+
+    /* Img styling */
+    .table td:has(img) {
+        padding: 10px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        width: 120px !important; /* Fixed width for consistency */
+    }
+
+    /* All images within table cells */
+    .table td img {
+        width: 80px !important;
+        height: 80px !important;
+        object-fit: cover !important; /* Maintains aspect ratio while filling the space */
+        border-radius: 8px !important;
+        border: 2px solid var(--warm-gold) !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+        .table td img:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+            border-color: var(--italian-red) !important;
+        }
+
+        /* Handle missing images */
+        .table td img[alt*="Finns ingen bild"] {
+            background: linear-gradient(135deg, var(--italian-cream), #F5F5DC) !important;
+            border: 2px dashed var(--light-brown) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: var(--light-brown) !important;
+            font-size: 0.8rem !important;
+            text-align: center !important;
+        }
+
+    /* Alternative fallback for older browsers that don't support :has() */
+    .table td[data-image-cell],
+    .table .image-cell {
+        padding: 10px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        width: 120px !important;
+    }
+
+/* Responsive image sizing */
+@media (max-width: 768px) {
+    .table td:has(img),
+    .table td[data-image-cell],
+    .table .image-cell {
+        width: 60px !important;
+        padding: 5px !important;
+    }
+
+    .table td img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
