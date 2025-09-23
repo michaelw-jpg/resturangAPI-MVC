@@ -3,6 +3,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Meta {
+    <meta name="description" content="Välkommen till vår italienska restaurang. Upptäck populära rätter, färska råvaror och genuina smaker från Italien.">
+    <meta name="keywords" content="Italiensk restaurang, pasta, pizza, italiensk mat, populära rätter">
+    <link rel="canonical" href="@Url.Action("Index", "Home", null, Context.Request.Scheme)" />
+}
+
 <div class="text-center mb-5">
     <h1 class="display-4">Välkommen till vår Restaurang!</h1>
     <p>
@@ -20,14 +26,14 @@
         @foreach (var item in Model.Where(m => m.IsPopular))
         {
             <div class="col">
-                <div class="card h-100 shadow-sm">
+                <article class="card h-100 shadow-sm">
                     <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/images/italianfood.jpg") : item.ImageUrl)"
                          alt="@item.Name"
                          class="card-img-top"
                          style="height:200px; object-fit:cover;"
                          onerror="this.onerror=null; this.src='@Url.Content("~/images/italianfood.jpg")';" />
                     <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
+                        <h3 class="card-title h5">@item.Name</h3>
                         <p class="card-text">@item.Description</p>
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
@@ -36,7 +42,7 @@
                             <i class="fa-solid fa-flag text-danger"></i>
                         </span>
                     </div>
-                </div>
+                </article>
             </div>
         }
     </div>
