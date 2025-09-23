@@ -33,6 +33,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: BookingController/Details/5
+        [Authorize]
         public ActionResult Details(int id)
         {
             return View();
@@ -79,6 +80,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: BookingController/Edit/5
+        [Authorize]
         public async Task <ActionResult> Edit(int id)
         {
             var booking = await _httpClient.GetFromJsonAsync<Booking>($"api/bookings/{id}");
@@ -98,6 +100,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: BookingController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -113,6 +116,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: BookingController/Delete/5
+        [Authorize]
         public async Task <ActionResult> Delete(int id)
         {
 
@@ -121,6 +125,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: BookingController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> DeleteConfirm(int id, IFormCollection collection)

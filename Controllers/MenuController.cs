@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using resturangAPI_MVC.Models;
 using resturangAPI_MVC.ViewModel.Menu;
@@ -29,6 +30,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: MenuController/Create
+        [Authorize]
         public ActionResult Create()
         {
             
@@ -36,6 +38,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: MenuController/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> Create(CreateMenuVM menu)
@@ -64,7 +67,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: MenuController/Edit/5
-        
+        [Authorize]
         public async Task<ActionResult> Edit(int id)
         {
             var menu = await _httpClient.GetFromJsonAsync<Menu>($"api/menus/{id}");
@@ -87,6 +90,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: MenuController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, PatchMenuVM menu)
@@ -109,6 +113,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: MenuController/Delete/5
+        [Authorize]
         public async Task <ActionResult> Delete(int id)
         {
             var menu = await _httpClient.GetFromJsonAsync<Menu>($"api/menus/{id}");
@@ -116,6 +121,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: MenuController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> DeleteConfirm(int id)

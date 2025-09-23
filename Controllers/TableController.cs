@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using resturangAPI_MVC.Models;
 using resturangAPI_MVC.ViewModel.Menu;
@@ -42,12 +43,14 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: TableController/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View(new CreateTableVM ());
         }
 
         // POST: TableController/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> Create(CreateTableVM table)
@@ -72,6 +75,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // GET: TableController/Edit/5
+        [Authorize]
         public async Task <ActionResult> Edit(int id)
         {
             var table = await _httpClient.GetFromJsonAsync<Table>($"api/tables/{id}");
@@ -92,6 +96,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: TableController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> Edit(int id, PatchTableVM table)
@@ -112,9 +117,10 @@ namespace resturangAPI_MVC.Controllers
                 return View();
             }
         }
-        
+
 
         // GET: TableController/Delete/5
+        [Authorize]
         public async Task <ActionResult> Delete(int id)
         {
             var table = await _httpClient.GetFromJsonAsync<Table>($"api/tables/{id}");
@@ -122,6 +128,7 @@ namespace resturangAPI_MVC.Controllers
         }
 
         // POST: TableController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task <ActionResult> DeleteConfirm(int id)
