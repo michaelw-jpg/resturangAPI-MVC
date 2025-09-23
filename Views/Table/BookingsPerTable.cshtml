@@ -31,7 +31,7 @@ else
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TableId_FK)
+                    Bords Nummer
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Guests)
@@ -62,7 +62,7 @@ else
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TableId_FK)
+                        @Html.DisplayFor(modelItem => item.Table.TableNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Guests)
@@ -74,9 +74,9 @@ else
                         @Html.DisplayFor(modelItem => item.CreatedAt)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Edit", "Edit","Booking", new { id=item.BookingId}) |
 
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "Delete","Booking", new { id = item.BookingId })
                     </td>
                 </tr>
             }
