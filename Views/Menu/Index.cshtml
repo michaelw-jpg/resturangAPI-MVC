@@ -45,11 +45,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-         
+
             <td>
-                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/images/italianfood.jpg") : item.ImageUrl)"
-                         alt="@item.Name"
-                         onerror="this.onerror=null; this.src='@Url.Content("~/images/italianfood.jpg")';" />
+                <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/images/italianfood.jpg") : item.ImageUrl)"
+                 alt="@item.Name"
+                 onerror="this.onerror=null; this.src='@Url.Content("~/images/italianfood.jpg")';"
+                 loading="lazy"
+                 width="200"
+                 height="150" />
             </td>
 
 				@if(User.Identity != null && User.Identity.IsAuthenticated)
