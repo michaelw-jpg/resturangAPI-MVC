@@ -8,13 +8,15 @@ export default function BookingForm({ apiBaseUrl, mvcActionUrl }) {
     const [step, setStep] = useState(1);
 
     const goNext = () => setStep(step + 1);
+    const goBack = () => setStep(step - 1);
+
 
     return (
         <BookingProvider>
             <div>
                 {step === 1 && <Step1 onNext={goNext} />}
-                {step === 2 && <Step2 apiBaseUrl={apiBaseUrl} onNext={goNext} />}
-                {step === 3 && <Step3 mvcActionUrl={mvcActionUrl} />}
+                {step === 2 && <Step2 apiBaseUrl={apiBaseUrl} onNext={goNext} onBack={goBack} />}
+                {step === 3 && <Step3 mvcActionUrl={mvcActionUrl} onBack={goBack} />}
             </div>
         </BookingProvider>
     );

@@ -26,15 +26,15 @@ export default function Step1({ onNext }) {
         <div>
             <h2>Ange Antal Gäster, Datum & Tid</h2>
             <div>
-                <label>Guests</label>
+                <label>Antal Gäster </label>
                 <input type="number" value={guests} onChange={(e) => setGuests(e.target.value)} />
             </div>
             <div>
-                <label>Date</label>
+                <label>Datum </label>
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div>
-                <label>Time</label>
+                <label>Tid</label>
                 <select value={time} onChange={(e) => setTime(e.target.value)}>
                     <option value="">-- Select time --</option>
                     {generateTimes().map((t) => (
@@ -42,7 +42,7 @@ export default function Step1({ onNext }) {
                     ))}
                 </select>
             </div>
-            <button type="button" onClick={handleNext}>Next</button>
+            <button type="button" onClick={handleNext}>Nästa</button>
         </div>
     );
 }

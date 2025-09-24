@@ -15,7 +15,21 @@
 </div>
 
 <div>
-    <a asp-action="Index">Tillbaka</a>
+    <div>
+        <a href="javascript:void(0);" onclick="goBack()">Avbryt bokning</a>
+    </div>
+
+    <script>
+        function goBack() {
+            if (document.referrer) {
+                // Go back to previous page
+                window.history.back();
+            } else {
+                // Fallback to Home/Index
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+        }
+    </script>
 </div>
 
 @section Scripts {

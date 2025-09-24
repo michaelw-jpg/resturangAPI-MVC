@@ -1,7 +1,7 @@
 ﻿import React, { useContext } from "react";
 import { BookingContext } from "./BookingContext";
 
-export default function Step3({ mvcActionUrl }) {
+export default function Step3({ mvcActionUrl, onBack }) {
     const { guests, date, time, selectedTable, name, setName, phoneNumber, setPhoneNumber, email, setEmail } =
         useContext(BookingContext);
 
@@ -26,7 +26,7 @@ export default function Step3({ mvcActionUrl }) {
 
             if (response.ok) {
                 alert("Booking created successfully!");
-                window.location.href = "/Booking/Index";
+                window.location.href = "/";
             } else {
                 const text = await response.text();
                 alert("Failed to create booking: " + text);
@@ -42,18 +42,19 @@ export default function Step3({ mvcActionUrl }) {
             <h2>Ange kontaktinformation</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name</label>
+                    <label>Namn</label>
                     <input value={name} onChange={(e) => setName(e.target.value)} maxLength={100} />
                 </div>
                 <div>
-                    <label>Phone Number</label>
+                    <label>Telefonnummer</label>
                     <input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} maxLength={18} />
                 </div>
                 <div>
-                    <label>Email</label>
+                    <label>Epost</label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} maxLength={50} />
                 </div>
-                <button type="submit">Create Booking</button>
+                <button type="button" onClick={onBack }>Tillbaka</button>
+                <button type="submit">Skapa bokning</button>
             </form>
         </div>
     );
