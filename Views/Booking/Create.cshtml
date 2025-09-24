@@ -2,17 +2,6 @@
 
 @{
     ViewData["Title"] = "Create";
-	var now = DateTime.Now;
-	int minutes = (int)Math.Round(now.Minute / 15.0) * 15;
-    if (minutes == 60) 
-    {
-        now = now.AddHours(1);
-        minutes = 0;
-	}
-	var roundedNow = new DateTime(now.Year, now.Month, now.Day, now.Hour, minutes, 0);
-	string defaultDate = roundedNow.ToString("yyyy-MM-dd");
-	string defaultTime = roundedNow.ToString("HH:mm");
-
 }
 
 <h1>Create Booking</h1>
@@ -20,78 +9,8 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form id="bookingForm" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BookingTime" id="HiddenBookingTime" />
-            
-            <div class="form-group">
-                <label asp-for="Guests" class="control-label"></label>
-                <input asp-for="Guests" class="form-control" id="Guests" />
-                <span asp-validation-for="Guests" class="text-danger"></span>
-            </div>
-
-           <!-- Step 1: Booking Date -->
-            <div class="form-group">
-                <label asp-for="BookingTime" class="control-label">Booking Date</label>
-                <input type="date" asp-for="BookingTime" class="form-control" id="BookingDate"
-                       value="@defaultDate" />
-                <span asp-validation-for="BookingTime" class="text-danger"></span>
-            </div>
-
-            <!-- Step 1: Booking Time (dropdown in 15-min increments) -->
-            <div class="form-group">
-                <label asp-for="BookingTime" class="control-label">Booking Time</label>
-                <select id="BookingTime" class="form-control">
-                    @for (var hour = 0; hour < 24; hour++)
-                    {
-                        for (var min = 0; min < 60; min += 15)
-                        {
-                            var timeStr = $"{hour:D2}:{min:D2}";
-                            var selected = timeStr == defaultTime ? "selected" : "";
-                            @:<option value="@timeStr" @selected>@timeStr</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="BookingTime" class="text-danger"></span>
-            </div>
-
-            <button type="button" id="checkTablesBtn" class="btn btn-secondary mt-3">
-                Check Available Tables
-            </button>
-
-            <!--Table selection + user details -->
-            <div id="step2" style="display:none; margin-top:20px;">
-                <div class="form-group">
-                    <label asp-for="TableId_FK" class="control-label"></label>
-                    <select asp-for="TableId_FK" class="form-control" id="TableSelect">
-                        <option value="">-- Select Table --</option>
-                    </select>
-                    <span asp-validation-for="TableId_FK" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </div>
-        </form>
+        <!-- React will mount here -->
+        <div id="bookingFormContainer"></div>
     </div>
 </div>
 
@@ -100,50 +19,15 @@
 </div>
 
 @section Scripts {
+    <!-- Load the React bundle built by Vite -->
+    <script src="~/js/bookingForm.bundle.js"></script>
+
+    <!-- Mount the React booking form -->
     <script>
-		const apiBaseUrl = "@ViewData["ApiBaseUrl"]";
-        document.getElementById("checkTablesBtn").addEventListener("click", function () {
-            const guests = document.getElementById("Guests").value;
-            const date = document.getElementById("BookingDate").value;
-            const time = document.getElementById("BookingTime").value;
-             if (date && time) 
-             {
-                document.getElementById("HiddenBookingTime").value = `${date}T${time}`;
-             }
-
-            if (!guests || !date || !time) {
-                alert("Please enter guests, date, and time first.");
-                return;
-            }
-
-            const bookingDateTime = `${date}T${time}`;
-
-
-            fetch(`${apiBaseUrl}api/Tables/availabletables?date=${bookingDateTime}&guests=${guests}`)
-                .then(response => response.json())
-                .then(data => {
-                    const tableSelect = document.getElementById("TableSelect");
-                    tableSelect.innerHTML = '<option value="">-- Select Table --</option>';
-
-                    if (data.length === 0) {
-                        alert("No available tables found.");
-                        return;
-                    }
-
-                    data.forEach(table => {
-                        const option = document.createElement("option");
-                        option.value = table.tableId;
-                        option.textContent = `Table ${table.tableId} (${table.seats} seats)`;
-                        tableSelect.appendChild(option);
-                    });
-
-                    // Show step 2
-                    document.getElementById("step2").style.display = "block";
-                })
-                .catch(error => {
-                    console.error("Error fetching tables:", error);
-                    alert("Something went wrong.");
-                });
-        });
+        mountBookingForm(
+            "bookingFormContainer",
+            "https://localhost:7238/", // apiBaseUrl
+            "https://localhost:7238/api/Bookings" // full endpoint for POST
+        );
     </script>
 }

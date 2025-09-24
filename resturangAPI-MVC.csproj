@@ -8,11 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="ReactApp\clientApp\.gitignore" />
+    <Content Include="ReactApp\clientApp\eslint.config.js" />
+    <Content Include="ReactApp\clientApp\README.md" />
+    <Content Include="ReactApp\clientApp\src\BookingForm.jsx" />
+    <Content Include="ReactApp\clientApp\src\main.jsx" />
+    <Content Include="ReactApp\clientApp\src\Step1.jsx" />
+    <Content Include="ReactApp\clientApp\src\Step2.jsx" />
+    <Content Include="ReactApp\clientApp\src\Step3.jsx" />
+    <Content Include="ReactApp\clientApp\vite.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\Theme.css" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ReactApp\clientApp\dist\assets\" />
+    <Folder Include="ReactApp\clientApp\public\" />
+    <Folder Include="ReactApp\clientApp\src\assets\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>
