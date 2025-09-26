@@ -25,24 +25,45 @@ export default function Step1({ onNext }) {
     return (
         <div>
             <h2>Ange Antal Gäster, Datum & Tid</h2>
-            <div>
-                <label>Antal Gäster </label>
-                <input type="number" value={guests} onChange={(e) => setGuests(e.target.value)} />
+            <div className="form-group">
+                <label>Antal Gäster</label>
+                <input
+                    type="number"
+                    className="form-control"
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                />
             </div>
-            <div>
-                <label>Datum </label>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+
+            <div className="form-group">
+                <label>Datum</label>
+                <input
+                    type="date"
+                    className="form-control"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                />
             </div>
-            <div>
+
+            <div className="form-group">
                 <label>Tid</label>
-                <select value={time} onChange={(e) => setTime(e.target.value)}>
+                <select
+                    className="form-control"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                >
                     <option value="">-- Select time --</option>
                     {generateTimes().map((t) => (
-                        <option key={t} value={t}>{t}</option>
+                        <option key={t} value={t}>
+                            {t}
+                        </option>
                     ))}
                 </select>
             </div>
-            <button type="button" onClick={handleNext}>Nästa</button>
+
+            <button type="button" className="btn btn-primary mt-3" onClick={handleNext}>
+                Nästa
+            </button>
         </div>
     );
 }

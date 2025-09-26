@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import BookingForm from "./BookingForm";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 window.mountBookingForm = (elementId, apiBaseUrl, mvcActionUrl) => {
     const container = document.getElementById(elementId);

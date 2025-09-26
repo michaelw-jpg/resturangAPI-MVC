@@ -5,23 +5,67 @@ export default function Step2({ apiBaseUrl, onNext, onBack }) {
     const { guests, date, time, selectedTable, setSelectedTable } = useContext(BookingContext);
     const [tables, setTables] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         if (!guests || !date || !time) return;
 
+        // Properly combine date and time into a Date object
+        const [hours, minutes] = time.split(":").map(Number);
+        const selectedDateTime = new Date(date);
+        selectedDateTime.setHours(hours, minutes, 0, 0);
+        const now = new Date();
+        console.log("Selected DateTime:", selectedDateTime);
+
+        // Client-side validation for past date
+        if (selectedDateTime < now) {
+            setError("Du f√•r inte v√§lja ett passerat datum");
+            setTables([]);
+            setLoading(false);
+            return;
+        }
+
         const fetchTables = async () => {
             setLoading(true);
+            setError("");
             try {
-                const res = await fetch(`${apiBaseUrl}api/Tables/availabletables?date=${date}T${time}&guests=${guests}`);
-                const data = await res.json();
+                const res = await fetch(
+                    `${apiBaseUrl}api/Tables/availabletables?date=${date}T${time}&guests=${guests}`
+                );
+                console.log("API Response Status:", res.status);
+
+                // Read the response body once, regardless of status
+                const responseText = await res.text();
+                console.log("API Response Text:", responseText);
+                if (!res.ok) {
+                    // Handle error response
+                    let translatedMessage = responseText;
+
+                    if (responseText.includes("Booking date cannot be in the past")) {
+                        translatedMessage = "Du f√•r inte v√§lja ett passerat datum";
+                    }
+
+                    throw new Error(translatedMessage || `API error: ${res.status}`);
+                }
+
+                // Parse JSON from text if response is OK
+                const data = JSON.parse(responseText);
                 setTables(data);
+
             } catch (err) {
                 console.error(err);
-                alert("Failed to fetch tables");
+                // Check if it's a JSON parsing error and provide a more specific message
+                if (err instanceof SyntaxError && err.message.includes("JSON")) {
+                    setError("Server returned invalid response");
+                } else {
+                    setError(err.message);
+                }
+                setTables([]);
             } finally {
                 setLoading(false);
             }
         };
+
         fetchTables();
     }, [guests, date, time, apiBaseUrl]);
 
@@ -33,16 +77,21 @@ export default function Step2({ apiBaseUrl, onNext, onBack }) {
         onNext();
     };
 
-    if (loading) return <div>Laddar tillg‰ngliga bord...</div>;
-    if (tables.length === 0) return <div>Inga bord finns tillg‰ngliga</div>;
+    if (loading) return <div>Laddar tillg√§ngliga bord...</div>;
+    if (error) return <div>{error}</div>;
+    if (tables.length === 0) return <div>Inga bord finns tillg√§ngliga</div>;
 
     return (
         <div>
-            <h2>V‰lj Bord</h2>
-            <div>
+            <h2>V√§lj Bord</h2>
+            <div className="form-group">
                 <label>Bord</label>
-                <select value={selectedTable || ""} onChange={(e) => setSelectedTable(e.target.value)}>
-                    <option value="">-- V‰lj Bord --</option>
+                <select
+                    className="form-control"
+                    value={selectedTable || ""}
+                    onChange={(e) => setSelectedTable(e.target.value)}
+                >
+                    <option value="">-- V√§lj Bord --</option>
                     {tables.map((t) => (
                         <option key={t.tableId} value={t.tableId}>
                             Table {t.tableId} ({t.seats} seats)
@@ -50,8 +99,23 @@ export default function Step2({ apiBaseUrl, onNext, onBack }) {
                     ))}
                 </select>
             </div>
-            <button type="button" onClick={onBack}>Tillbaka</button>
-            <button type="button" onClick={handleNext}>N‰sta</button>
+            <div className="mt-3">
+                <button
+                    type="button"
+                    className="btn btn-secondary mr-2"
+                    onClick={onBack}
+                >
+                    Tillbaka
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleNext}
+                    disabled={tables.length === 0 || !selectedTable}
+                >
+                    N√§sta
+                </button>
+            </div>
         </div>
     );
 }
